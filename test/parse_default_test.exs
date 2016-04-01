@@ -150,6 +150,11 @@ defmodule DateFormatTest.ParseDefault do
     assert {:ok, %DateTime{second: 2, millisecond: 60}} = parse(str, "{ISOz}")
   end
 
+  test "parse leap seconds" do
+    str = "2015-06-30T23:59:60Z"
+    assert {:ok, %DateTime{second: 60}} = parse(str, "{ISOz}")
+  end
+
   test "parse s-epoch" do
     date = DateTime.epoch |> Timex.shift(years: 3, days: 12)
     secs = DateTime.to_seconds(date, :epoch)
